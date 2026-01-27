@@ -31,7 +31,7 @@ public class Main  {
             }
         }
 
-//        using forEach method:
+//        using forEach method: forEach(iterator method takes a lambda expression as an argument to perform on elements )
         nums.forEach(num -> {
             if (num % 2 == 0) {
                 System.out.println(num);
@@ -42,5 +42,22 @@ public class Main  {
         nums.stream()
                 .filter(num -> num % 2 == 0)
                 .forEach(System.out::println);
+
+//         Important points about streams:
+//        stream can't be used twice, once a terminal operation is invoked, the stream is closed.
+//        nums.stream()
+//                .filter(num -> num % 2 == 0)
+//                .forEach(System.out::println); // this will throw an exception
+
+//        stream don't modify the original data source, it creates a new stream with the modified data.
+
+//        stream is a sequence of elements supporting sequential and parallel aggregate operations.
+//        stream does not store data, it simply takes input from the source (like collection, arrays) and performs operations on it.
+//        stream operations are lazy in nature, meaning they are not executed until a terminal operation is invoked.
+
+//        stream operations are of two types:
+//        1. intermediate operations: filter, map, sorted, distinct, limit, skip
+//        2. terminal operations: forEach, collect, reduce, count, anyMatch
+
     }
 }
