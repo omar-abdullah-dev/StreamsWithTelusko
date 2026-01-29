@@ -131,5 +131,39 @@ public class StreamPractice {
         int totalSumLambda = arr.stream()
                 .reduce(0, sumLambda);
         System.out.println("Total sum using reduce and lambda: " + totalSumLambda);
+
+
+//        if we want to find the maximum value in the stream using reduce:
+        BinaryOperator<Integer> maxOperator = new BinaryOperator<Integer>() {
+            @Override
+            public Integer apply(Integer t1, Integer t2) {
+                return t1 > t2 ? t1 : t2;
+            }
+        };
+        int maxValue = arr.stream()
+                .reduce(Integer.MIN_VALUE, maxOperator);
+        System.out.println("Maximum value using reduce and BinaryOperator: " + maxValue);
+
+//         if we want to work with Threads and parallel streams for any operation:
+        int parallelSum = arr.parallelStream()
+                .filter(n-> n%2==0)
+                .map(n-> n*2)
+                .reduce(0, Integer::sum);
+        System.out.println("Sum using parallel stream: " + parallelSum);
+
+//        if we want to convert stream back to collection like List or Set we can use collect method:
+        List<Integer> evenList = arr.stream()
+                .filter(n-> n%2==0)
+                .collect(java.util.stream.Collectors.toList());
+        System.out.println("Even numbers collected to List: " + evenList);
+
+//        if we want to use streams with threads it's not suggested to use shared mutable data structures
+//        as it may lead to inconsistent results.
+//        for an example if we want to make a sort operation
+//        we might use the normal stream or the single thread stream
+//         example:
+            List<Integer> listToBeSorted = Arrays.asList(1,4,6,2,6,2,7,9,3,2,68,9,-10,9,77,22,11,5);
+            List<Integer> sortedList = listToBeSorted.stream().sorted().toList();
+        System.out.println(sortedList);
     }
 }
