@@ -1,5 +1,6 @@
 import java.util.List;
 import java.util.Arrays;
+import java.util.function.Predicate;
 import java.util.stream.Stream;
 
 public class StreamPractice {
@@ -45,6 +46,43 @@ public class StreamPractice {
 //                .reduce(0,Integer::sum);
 
         System.out.println("Sum using streams: " + sumOfStream);
+
+        List<Integer> arr =  Arrays.asList(1,2,3,4,5,6,7,8,9,10,11,12,13,14,15);
+        // Find the product of all odd numbers greater than 5
+        int product = arr.stream()
+                .filter(n-> n%2!=0 && n>5)
+                .reduce(1,(a,b)-> a*b);
+        System.out.println("Product of all odd numbers greater than 5: " + product);
+
+//        how stream filter works internally:
+//        filter method takes a predicate from the functional interface named Predicate<T>
+
+//        it has a method named test(T t) which returns a boolean value
+//        so when we pass a lambda expression to the filter method, it is converted to an instance of Predicate<T> interface
+//        and the test method is called for each element in the stream to check if the element satisfies the condition or not.
+//        here is an example:
+        Predicate<Integer> isOdd = new Predicate<Integer>() {
+            @Override
+            public boolean test(Integer t) {
+                return t%2!=0;
+            }
+        };
+
+        arr.stream()
+                .filter(isOdd)
+                .forEach(System.out::println);
+
+//  this was a normal way of implementing Predicate interface using anonymous class
+//  now using lambda expression:
+        Predicate<Integer> isOddLambda = t -> t%2!=0;
+        arr.stream()
+                .filter(isOddLambda)
+                .forEach(System.out::println);
+
+//        here is the predicate which will be passed implicitly to the filter method to check for odd numbers greater than 5
+        arr.stream()
+                .filter((n)-> n%2!=0 && n>5)
+                .forEach(System.out::println);
 
 
     }
