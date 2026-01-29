@@ -1,5 +1,6 @@
 import java.util.List;
 import java.util.Arrays;
+import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.stream.Stream;
 
@@ -82,6 +83,30 @@ public class StreamPractice {
 //        here is the predicate which will be passed implicitly to the filter method to check for odd numbers greater than 5
         arr.stream()
                 .filter((n)-> n%2!=0 && n>5)
+                .forEach(System.out::println);
+
+
+//        let's explain how map works internally:
+//          map works similar to filter,
+//        but instead of Predicate<T> interface, it takes a Function<T,R> interface
+//        which is a functional interface has a method named apply(T t) which returns a value of type R
+
+//        normal example to show how map works internally:
+        Function <Integer, Integer> doublicateFunction = new Function<Integer, Integer>() {
+            @Override
+            public Integer apply(Integer t) {
+                return t*2;
+            }
+        };
+        arr.stream()
+                .map(doublicateFunction)
+                .forEach(System.out::println);
+
+
+//        now using lambda expression:
+        Function <Integer, Integer> duplicateLambda = t -> t*2;
+        arr.stream()
+                .map(duplicateLambda)
                 .forEach(System.out::println);
 
 
