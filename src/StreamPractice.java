@@ -1,5 +1,6 @@
 import java.util.List;
 import java.util.Arrays;
+import java.util.function.BinaryOperator;
 import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.stream.Stream;
@@ -109,6 +110,26 @@ public class StreamPractice {
                 .map(duplicateLambda)
                 .forEach(System.out::println);
 
+//      let's see how the reduce method works internally:
+//      reduce method takes two parameters:
+//      1. an identity value (of type T) --> (0 for sum, 1 for multiplication) as an initial value for the reduction operation
+//      2. a BinaryOperator<T> which is a functional interface that has a method
+//         named apply(T t1, T t2) which takes two parameters of type T and returns a value of type T   -->(c,ex: sum of two integers)
+        BinaryOperator<Integer> sumOperator = new BinaryOperator<Integer>() {
+            @Override
+            public Integer apply(Integer t1, Integer t2) {
+                return t1 + t2;
+            }
+        };
+        int totalSum = arr.stream()
+                .reduce(0, sumOperator);
+        System.out.println("Total sum using reduce and BinaryOperator: " + totalSum);
 
+//       now using lambda expression:
+        BinaryOperator<Integer> sumLambda = (c,e) -> c+e;
+        BinaryOperator<Integer>sumLambdaShort = Integer::sum; // method reference of Integer class
+        int totalSumLambda = arr.stream()
+                .reduce(0, sumLambda);
+        System.out.println("Total sum using reduce and lambda: " + totalSumLambda);
     }
 }
