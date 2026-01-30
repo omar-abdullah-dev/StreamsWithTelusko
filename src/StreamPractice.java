@@ -3,7 +3,6 @@ import java.util.Arrays;
 import java.util.function.BinaryOperator;
 import java.util.function.Function;
 import java.util.function.Predicate;
-import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class StreamPractice {
@@ -17,7 +16,7 @@ public class StreamPractice {
 //        stream methods may return :
 //        1. a single value (like count, reduce) --> ex: long count = arrList.stream().filter(num -> num%2==0).count();
 //                                               --> ex: Integer sum = arrLisr.stream().reduce(0,(a,b) -> a+b); // will return sum of all elements
-//        2. a new stream (like filter, map) --> ex: Stream<Integer> evenStream = arrList.stream().filter(num -> num%2==0);
+//        2. a new stream (like filter, map)     --> ex: Stream<Integer> evenStream = arrList.stream().filter(num -> num%2==0);
 
 //        using normal loop to calculate sum of double of even numbers
         int sum =0;
